@@ -1,13 +1,17 @@
 # instalation
 ## composer
-composer install
-npm install && npm run dev
+1. composer install
+2. npm install && npm run dev
 
 
 ## env
-add config to env
-linux:
+1. add config to env
+
+
+a. linux:
 uploadFolder=/home/dodev/upload
-windows:
+
+
+b. windows:
 uploadFolder=C:\\xampp\\htdocs\\uts
 
