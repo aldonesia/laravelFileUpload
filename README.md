@@ -15,3 +15,6 @@ uploadFolder=/home/dodev/upload
 b. windows:
 uploadFolder=C:\\xampp\\htdocs\\uts
 
+
+## migrate
+php artisan migrate
