@@ -31,13 +31,14 @@ class UploadController extends Controller
                 $base64_string[] = base64_encode(file_get_contents($file));;  
             }
         }
-
-        // echo '<pre>';print_r($base64_string);echo '</pre>';die();
-
         $base64_string= implode(',',$base64_string);
-
-        $folder = env('uploadFolder').'/'.$userId;
-        // echo '<pre>';print_r($image_name);echo '</pre>';die();
+        
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $folder = env('uploadFolder').'\\'.$userId;
+        } else {
+            $folder = env('uploadFolder').'/'.$userId;
+        }
+        
         if (!file_exists($folder)) {
             if (!mkdir($folder, 0777, true)) {
                 $m = array('msg' => "REJECTED, cant create folder");
@@ -48,10 +49,13 @@ class UploadController extends Controller
 
         $data = explode(',', $base64_string);
         foreach ($data as $key => $d){
-            // $fullName = $folder."\\X_".$key."_". date("YmdHis") .".png"; // windows pake \\
-            $fullName = $folder."/X_".$key."_". date("YmdHis") .".png"; // linux pake /
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                $fullName = $folder."\\X_".$key."_". date("YmdHis") .".png"; // windows pake \\
+            } else {
+                $fullName = $folder."/X_".$key."_". date("YmdHis") .".png"; // linux pake /
+            }
             $ifp = fopen($fullName, "wb");
-            fwrite($ifp, base64_decode($data[1]));
+            fwrite($ifp, base64_decode($d));
             fclose($ifp);
             if (!$ifp) {
                 $m = array('masg' => "REJECTED, ".$fullName."not saved" );
