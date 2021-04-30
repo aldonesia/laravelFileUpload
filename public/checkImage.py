@@ -14,6 +14,7 @@ if __name__=="__main__":
     else:
         print(nmFile)
         print('height, width, color:', img.shape)
+        print('size : ',os.path.getsize(nmFile))
         print("ACCEPTED")
 
         
