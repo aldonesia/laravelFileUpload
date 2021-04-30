@@ -48,6 +48,7 @@ class UploadController extends Controller
         }
 
         $data = explode(',', $base64_string);
+        $output= array();
         foreach ($data as $key => $d){
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
                 $fullName = $folder."\\X_".$key."_". date("YmdHis") .".png"; // windows pake \\
@@ -62,11 +63,13 @@ class UploadController extends Controller
                 echo json_encode($m);
                 return;
             }
-            $command = escapeshellcmd("python checkFace.py".$fullName);
-            $output = shell_exec($command);
+            $command = escapeshellcmd("python ".public_path()."/checkImage.py ".$fullName);
+            $output[] = shell_exec($command);
         }
 
-        return back()->with('success', 'Data Your files has been successfully added');
+        $output= implode(',',$output);
+        $msg= 'Data Your files has been successfully added, python : '.$output;
+        return back()->with('success', $msg);
 
     }
 

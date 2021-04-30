@@ -1,4 +1,8 @@
 # instalation
+## python
+1. pip install --upgrade pip setuptools wheel
+2. pip install opencv-python (jika pake python2.7, installnya pake pip install opencv-python==4.2.0.32)
+
 ## composer
 1. composer install
 
