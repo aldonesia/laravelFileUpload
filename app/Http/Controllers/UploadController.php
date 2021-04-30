@@ -63,7 +63,11 @@ class UploadController extends Controller
                 echo json_encode($m);
                 return;
             }
-            $command = escapeshellcmd("python ".public_path()."/checkImage.py ".$fullName);
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                $command = escapeshellcmd("python ".public_path()."\\checkImage.py ".$fullName);
+            } else {
+                $command = escapeshellcmd("python ".public_path()."/checkImage.py ".$fullName);
+            }
             $output[] = shell_exec($command);
         }
 
